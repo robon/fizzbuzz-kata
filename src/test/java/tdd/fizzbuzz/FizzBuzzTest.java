@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class FizzBuzzTest {
 
@@ -17,9 +18,7 @@ public class FizzBuzzTest {
 	@Test
 	void forValue0_shouldReturn0() {
 
-		String result = fizzBuzz.play(0);
-
-		assertThat(result).isEqualTo("0");
+		assertThatThrownBy(() -> fizzBuzz.play(0)).isInstanceOf(IllegalArgumentException.class);
 	}
 
 	@Test
@@ -75,11 +74,11 @@ public class FizzBuzzTest {
 
 		String result1 = fizzBuzz.play(4);
 		String result2 = fizzBuzz.play(11);
-		String result3 = fizzBuzz.play(701);
+		String result3 = fizzBuzz.play(601);
 
 		assertThat(result1).isEqualTo("4");
 		assertThat(result2).isEqualTo("11");
-		assertThat(result3).isEqualTo("701");
+		assertThat(result3).isEqualTo("601");
 	}
 
 	@Test
@@ -95,11 +94,62 @@ public class FizzBuzzTest {
 
 		String result1 = fizzBuzz.play(45);
 		String result2 = fizzBuzz.play(150);
-		String result3 = fizzBuzz.play(105);
+		String result3 = fizzBuzz.play(90);
 
 		assertThat(result1).isEqualTo("FizzBuzz");
 		assertThat(result2).isEqualTo("FizzBuzz");
 		assertThat(result3).isEqualTo("FizzBuzz");
 	}
 
+	@Test
+	void forValue31_shouldReturnFizz() {
+
+		String result = fizzBuzz.play(31);
+
+		assertThat(result).isEqualTo("Fizz");
+	}
+
+	@Test
+	void forValue452_shouldReturnBuzz() {
+
+		String result = fizzBuzz.play(452);
+
+		assertThat(result).isEqualTo("Buzz");
+	}
+
+	@Test
+	void forValue333_shouldReturnFizz() {
+
+		String result = fizzBuzz.play(333);
+
+		assertThat(result).isEqualTo("Fizz");
+	}
+
+	@Test
+	void forValue5555_shouldReturnFizz() {
+
+		String result = fizzBuzz.play(5555);
+
+		assertThat(result).isEqualTo("Buzz");
+	}
+
+	@Test
+	void forValue7_shouldReturnBar() {
+
+		String result = fizzBuzz.play(7);
+
+		assertThat(result).isEqualTo("Bar");
+	}
+
+	@Test
+	void forNumbersDivisibleBy3And5And7_orContain3And5And7_shouldReturnFizzBuzzBar() {
+
+		String result1 = fizzBuzz.play(357);
+		String result2 = fizzBuzz.play(735);
+		String result3 = fizzBuzz.play(105);
+
+		assertThat(result1).isEqualTo("FizzBuzzBar");
+		assertThat(result2).isEqualTo("FizzBuzzBar");
+		assertThat(result3).isEqualTo("FizzBuzzBar");
+	}
 }
